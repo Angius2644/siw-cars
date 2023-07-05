@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> User Panel</title>
+	<link rel="stylesheet" href="/stile.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div class="logo-container">
+		<a id="logo-link" href="/">
+			<img id="logo-img" src="/siwCarsLogo.jpg" />
+		</a>
+	</div>
+	<div class="panel">
+		<div class="avatar">AB</div>
+		
+<div style="width: 980px; margin: auto;">
+
+		<div class="form-container" th:object="${ordine}">
+		<h1 id="title">Aggiungi una macchina</h1>
+		<div class="form-group" th:if="${#fields.hasGlobalErrors()}" }>
+			<p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">Elenco errori globali</p>
+		</div>
+		<form th:action="@{/user/1/newOrder}" method="POST">
+			<div class="form-group">
+				<input class="input" placeholder="Problema" type="text" th:field="*{titolo}" name="titolo" style="text-transform: capitalize;" />
+				<small class="error" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}">Errore</small>
+			</div>
+
+			<div class="form-group">
+				<textarea placeholder="Descriva qui il problema" th:field="*{descrizione}" name="descrizione" />
+				<small class="error" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">Errore</small>
+			</div>
+
+			<div class="form-submit">
+				<button type="submit">Invia richiesta</button>
+			</div>
+		</form>
+	</div>
+	
+</div>
+</body>
+
+</html>

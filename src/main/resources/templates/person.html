@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Dettagli Persona</title>
+	<link rel="stylesheet" href="/stile.css" />
+</head>
+
+<body>
+	<div class="logo-container">
+		<a id="logo-link" href="/">
+			<img id="logo-img" src="/siwCarsLogo.jpg" />
+		</a>
+	</div>	<div th:if="${person}">
+		<h2 id="title" th:text="'Anagrafica del sig./sign. ' + ${person.nome} + ' ' + ${person.cognome}">Dettagli
+			persona</h2>
+		<div class="vehicle-details">
+			<ul>
+				<li><strong>Nome: </strong><span th:text="${person.nome}">nome</span></li>
+				<li><strong>Cognome: </strong><span th:text="${person.cognome}">cognome</span></li>
+				<li><strong>Data di Nascita: </strong><span th:text="${person.dataNascita}">data</span></li>
+				<li><strong>Luogo di Nascita: </strong><span th:text="${person.luogoNascita}">luogo</span></li>
+				<li><strong>Telefono: </strong><span th:text="${person.telefono}">telefono</span></li>
+			</ul>
+		</div>
+		<div th:unless="${person}">Non esiste</div>
+</body>
+
+</html>

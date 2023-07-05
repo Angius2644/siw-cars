@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Nuova Macchina</title>
+	<link rel="stylesheet" href="/stile.css" />
+</head>
+
+<body>
+	<div class="logo-container">
+		<a id="logo-link" href="/">
+			<img id="logo-img" src="/siwCarsLogo.jpg" />
+		</a>
+	</div>	<div class="form-container" th:object="${car}">
+		<h1 id="title">Aggiungi una macchina</h1>
+		<div class="form-group" th:if="${#fields.hasGlobalErrors()}" }>
+			<p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">Elenco errori globali</p>
+		</div>
+		<form th:action="@{/cars}" method="POST">
+			<div class="form-group">
+				<input placeholder="Targa del Veicolo" type="text" th:field="*{targa}" name="targa"
+					style="text-transform: uppercase;" />
+				<small class="error" th:if="${#fields.hasErrors('targa')}" th:errors="*{targa}">Errore</small>
+			</div>
+
+			<div class="form-group">
+				<input placeholder="Marca del Veicolo" type="text" th:field="*{marca}" name="marca"
+					style="text-transform: capitalize;" />
+				<small class="error" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}">Errore</small>
+			</div>
+
+			<div class="form-group">
+				<input placeholder="Modello del Veicolo" type="text" th:field="*{modello}" name="modello"
+					style="text-transform: capitalize;" />
+				<small class="error" th:if="${#fields.hasErrors('modello')}" th:errors="*{modello}">Errore</small>
+			</div>
+
+			<div class="form-group">
+				<input placeholder="Anno di immatricolazione" type="year" th:field="*{immatricolazione}"
+					name="immatricolazione" />
+				<small class="error" th:if="${#fields.hasErrors('immatricolazione')}"
+					th:errors="*{immatricolazione}">Errore</small>
+			</div>
+
+			<div class="form-group">
+				<input placeholder="Chilometri percorsi dal veicolo" type="text" th:field="*{chilometri}"
+					name="chilometri" />
+				<small class="error" th:if="${#fields.hasErrors('chilometri')}" th:errors="*{chilometri}">Errore</small>
+			</div>
+
+			<div class="form-group">
+				<input placeholder="Colore del veicolo" type="text" th:field="*{colore}" name="colore"
+					style="text-transform: capitalize;" />
+				<small class="error" th:if="${#fields.hasErrors('colore')}" th:errors="*{colore}">Errore</small>
+			</div>
+
+			<div class="form-submit">
+				<button type="submit">Inserisci veicolo</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

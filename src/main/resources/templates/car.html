@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Film</title>
+	<link rel="stylesheet" href="/stile.css" />
+</head>
+
+<body>
+	<div class="logo-container">
+		<a id="logo-link" href="/">
+			<img id="logo-img" src="/siwCarsLogo.jpg" />
+		</a>
+	</div>	<div th:if="${car}">
+		<h2 id="title" th:text="'Dettagli del veicolo targato ' + ${car.targa}">Dettagli del veicolo targato xxxx</h2>
+		<div class="vehicle-details">
+			<ul>
+				<li><strong>Targa: </strong><span th:text="${car.targa}">Targa</span></li>
+				<li><strong>Modello: </strong><span th:text="${car.modello}">Modello</span></li>
+				<li><strong>Marca: </strong><span th:text="${car.marca}">Marca</span></li>
+				<li><strong>Chilometri: </strong><span th:text="${car.chilometri}">Chilometri</span></li>
+				<li><strong>Colore: </strong><span th:text="${car.colore}">Colore</span></li>
+				<li><strong>Anno immatricolazione: </strong><span
+						th:text="${car.immatricolazione}">Immatricolazione</span></li>
+			</ul>
+		</div>
+		<div th:unless="${car}">Non esiste</div>
+</body>
+
+</html>

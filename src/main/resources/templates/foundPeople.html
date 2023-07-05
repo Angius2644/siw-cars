@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Elenco Persone</title>
+	<link rel="stylesheet" href="/stile.css" />
+</head>
+
+<body>
+	<div class="logo-container">
+		<a id="logo-link" href="/">
+			<img id="logo-img" src="/siwCarsLogo.jpg" />
+		</a>
+	</div>
+	<div class="form-container">
+		<h1 id="title">Elenco persone che corrispondono a <span th:text="${nome}">nome</span> <span
+				th:text="${cognome}">cognome</span>
+		</h1>
+		<div th:if="${people.isEmpty()}">Non ci sono persone che corrispondono a "<span th:text="${nome}">nome</span>
+			<span th:text="${cognome}">cognome</span>"</div>
+		<ul th:if="${!people.isEmpty()}">
+			<li th:each="person : ${people}">
+				<a class="li" th:href="@{'/people' + '/' + ${person.id}}"
+					th:text="${person.nome} + ' ' + ${person.cognome} + ' (' + ${person.luogoNascita} + ')'">Nome
+					Cognome (luogoNascita)</a>
+			</li>
+		</ul>
+	</div>
+</body>
+
+</html>
