@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SIW - Cars</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<div style="float: inline-start;" th:if="${userDetails}">
+				<div class="avatar" th:text="${userDetails.username[0]}"></div>
+			</div>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Officina Auto</h1>
+			
+			<div class="user-container">
+				
+				<div class="panel-grid">
+					<a class="link" href="/newOrder">
+						<div class="box">
+							<div class="div-value"><h2>Nuova richiesta</h2></div>
+							<div class="div-label">Invia una nuova richiesta di riparazione</div>
+						</div>
+					</a>
+					<a class="link" href="/myGarage">
+						<div class="box">
+							<div class="div-value"><h2>Il mio garage</h2></div>
+							<div class="div-label">Controlla lo stato degli ordini</div>
+						</div>
+					</a>
+					<a class="link" href="/profile">
+						<div class="box">
+							<div class="div-value"><h2>Dati personali</h2></div>
+							<div class="div-label">Modifica i tuoi dati personali o aggiungi una nuova macchina all'elenco</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</body>
+	</html>

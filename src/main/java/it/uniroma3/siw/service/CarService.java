@@ -4,55 +4,40 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
+import it.uniroma3.siw.model.Account;
 import it.uniroma3.siw.model.Car;
-import it.uniroma3.siw.repository.AccountRepository;
 import it.uniroma3.siw.repository.CarRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CarService {
 
-	@Autowired private CarRepository carRepository;
-	@Autowired private AccountRepository accountRepository;
+	@Autowired
+	private CarRepository carRepository;
 
-	public List<Car> carListById(Long id) {
-		return this.carRepository.carList(id);
+	@Transactional
+	public Car saveCar (Car car) {
+		return this.carRepository.save(car);
 	}
 
-	public Car newCar (Car car) {
-		car.setTarga(car.getTarga().toUpperCase());
-		car.setColore(StringUtils.capitalize(car.getColore()));
-		car.setMarca(StringUtils.capitalize(car.getMarca()));
-		car.setModello(StringUtils.capitalize(car.getModello()));
-
-		this.carRepository.save(car);
-
-		return car;
-	}
-
-	public Car formNewCar(Long id) {
-		Car car = new Car();
-		car.setAccount(this.accountRepository.findById(id).get());
-		return car;
-	}
-
+	@Transactional
 	public Car getCar(Long id) {
 		return this.carRepository.findById(id).get();
 	}
 
-	public List<Car> searchCar(String targa){
-		return this.carRepository.findByTarga(targa.toUpperCase());
+	@Transactional
+	public List<Car> getAllCars(Account account) {
+		return this.carRepository.findAllByAccount(account);
 	}
 
-	public Iterable<Car> showCar(){
-		return this.carRepository.findAll();
+	@Transactional
+	public int getTotalCars(Account account) {
+		return this.carRepository.countByAccount(account);
 	}
 
-	public Iterable<Car> userCars(Long id){
-		if(this.accountRepository.findById(id).get() != null)
-		return this.carRepository.carList(id);
-		else
-			return null;
+	@Transactional
+	public void deleteCar(Long car_id) {
+		this.carRepository.deleteById(car_id);
 	}
 }

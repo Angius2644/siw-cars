@@ -6,14 +6,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.model.Ordine;
-import it.uniroma3.siw.repository.CarRepository;
-import it.uniroma3.siw.repository.OrdineRepository;
+import it.uniroma3.siw.service.OrdineService;
 
 @Component
 public class OrdineValidator implements Validator {
 
-	@Autowired OrdineRepository ordineRepository;
-	@Autowired CarRepository carRepository;
+	@Autowired
+	private OrdineService ordineService;
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -24,12 +23,12 @@ public class OrdineValidator implements Validator {
 	public void validate(Object o, Errors errors) {
 		Ordine ordine = (Ordine) o;
 
-		if(this.ordineRepository.existsByTitoloAndIsComplete(ordine.getTitolo(), false)) {
-			errors.reject("ordine.duplicate");
+		if(ordine.getAccount() != null && ordine.getCar() != null && !ordine.getAccount().getCars().contains(ordine.getCar())) {
+			errors.reject("ordine.invalidCarOwner");
 		}
 
-		if(this.carRepository.carList(ordine.getId()).contains(ordine.getCar())) {
-			errors.reject("ordine.mismatchCar");
+		if(this.ordineService.isPresent(ordine)) {
+			errors.reject("ordine.duplicate");
 		}
 	}
 }

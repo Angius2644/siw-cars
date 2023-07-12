@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nuova macchina</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<a class="genericButton" style="float: right;" href="/login">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Aggiungi macchina</h1>
+			
+			<div class="user-container">
+				
+				<form th:action="@{/newCar}" method="POST" accept-charset="UTF-8" th:object="${car}">
+					
+						<div th:if="${#fields.hasGlobalErrors()}">
+							<p style="color: red; text-align: center;" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+						</div>
+					<div class="form-elements">
+						<div class="column">
+							<div>
+								<label>Targa</label>
+								<input type="text" required th:field="*{targa}">
+								<span th:if="${#fields.hasErrors('targa')}" th:errors="*{targa}" th:style="'color:red'">
+								</span>
+							</div>
+							<div>
+								<label>Immatricolazione</label>
+								<input type="number" required th:field="*{immatricolazione}">
+								<span th:if="${#fields.hasErrors('immatricolazione')}" th:errors="*{immatricolazione}" th:style="'color:red'">
+								</span>
+							</div>
+							<div>
+								<label>Chilometri</label>
+								<input type="number" required th:field="*{chilometri}">
+								<span th:if="${#fields.hasErrors('chilometri')}" th:errors="*{chilometri}" th:style="'color:red'">
+								</span>
+							</div>
+						</div>
+						<div class="column">
+							<div>
+								<label>Marca</label>
+								<input type="text" required th:field="*{marca}">
+								<span th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}" th:style="'color:red'">
+								</span>
+							</div>
+							<div>
+								<label>Modello</label>
+								<input type="text" required th:field="*{modello}">
+								<span th:if="${#fields.hasErrors('modello')}" th:errors="*{modello}" th:style="'color:red'">
+								</span>
+							</div>
+							<div>
+								<label>Colore</label>
+								<input type="text" required th:field="*{colore}">
+								<span th:if="${#fields.hasErrors('colore')}" th:errors="*{colore}" th:style="'color:red'">
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-submit">
+						<button type="submit">Registra veicolo</button>
+					</div>
+					
+				</form>
+			</div>
+		</body>
+	</html>

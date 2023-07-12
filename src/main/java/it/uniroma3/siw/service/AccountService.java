@@ -1,13 +1,11 @@
 package it.uniroma3.siw.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Account;
-import it.uniroma3.siw.model.Car;
-import it.uniroma3.siw.model.Person;
 import it.uniroma3.siw.repository.AccountRepository;
 import it.uniroma3.siw.repository.CarRepository;
 
@@ -18,20 +16,42 @@ public class AccountService {
 	private AccountRepository accountRepository;
 
 	@Autowired
-	private CarRepository carRepository;
+	private CarRepository carrepository;
 
-	public Account getAccount(String username) {
+	@Autowired
+    protected PasswordEncoder passwordEncoder;
+
+	@Transactional
+	public Account getAccountByUsername(String username) {
 
 		return this.accountRepository.findByUsername(username).get();
 	}
 
-	public Person getPerson(Long id) {
+	@Transactional
+	public Account getAccount(Long account_id) {
 
-		return this.accountRepository.findById(id).get().getPerson();
+		return this.accountRepository.findById(account_id).get();
 	}
 
-	public List<Car> getCars(Long id){
+	@Transactional
+	public Account saveAccount(Account account) {
+		account.setRole(Account.DEFAULT_ROLE);
+		account.setPassword(this.passwordEncoder.encode(account.getPassword()));
+		return this.accountRepository.save(account);
+	}
 
-		return this.carRepository.carList(id);
+	@Transactional
+	public String getRole(String username) {
+		return this.accountRepository.findByUsername(username).get().getRole();
+	}
+
+	@Transactional
+	public boolean isPresentByUsername(String username) {
+		return this.accountRepository.existsByUsername(username);
+	}
+
+	@Transactional
+	public boolean hasCars(String username) {
+		return this.carrepository.existsByAccount(this.accountRepository.findByUsername(username).get());
 	}
 }

@@ -1,15 +1,13 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -38,11 +36,7 @@ public class Person {
 	@Pattern(regexp = "^[A-Za-z-]+$")
 	private String luogoNascita;
 
-	@Digits(integer = 15, fraction = 0)
-	@Min(4)
-	private Long telefono;
-
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Account account;
 
 	public Long getId() {
@@ -85,14 +79,6 @@ public class Person {
 		this.luogoNascita = luogoNascita;
 	}
 
-	public Long getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(Long telefono) {
-		this.telefono = telefono;
-	}
-
 	public Account getAccount() {
 		return account;
 	}
@@ -103,7 +89,13 @@ public class Person {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cognome, dataNascita, luogoNascita, nome);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((cognome == null) ? 0 : cognome.hashCode());
+		result = prime * result + ((dataNascita == null) ? 0 : dataNascita.hashCode());
+		result = prime * result + ((luogoNascita == null) ? 0 : luogoNascita.hashCode());
+		return result;
 	}
 
 	@Override
@@ -113,7 +105,26 @@ public class Person {
 		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		Person other = (Person) obj;
-		return Objects.equals(cognome, other.cognome) && Objects.equals(dataNascita, other.dataNascita)
-				&& Objects.equals(luogoNascita, other.luogoNascita) && Objects.equals(nome, other.nome);
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (cognome == null) {
+			if (other.cognome != null)
+				return false;
+		} else if (!cognome.equals(other.cognome))
+			return false;
+		if (dataNascita == null) {
+			if (other.dataNascita != null)
+				return false;
+		} else if (!dataNascita.equals(other.dataNascita))
+			return false;
+		if (luogoNascita == null) {
+			if (other.luogoNascita != null)
+				return false;
+		} else if (!luogoNascita.equals(other.luogoNascita))
+			return false;
+		return true;
 	}
 }

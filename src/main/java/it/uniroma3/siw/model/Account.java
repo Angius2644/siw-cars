@@ -1,8 +1,8 @@
 package it.uniroma3.siw.model;
 
 import java.util.List;
-import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Account {
-	
+
 	public static final String DEFAULT_ROLE = "DEFAULT";
 	public static final String ADMIN_ROLE = "ADMIN";
 
@@ -26,13 +26,14 @@ public class Account {
 
 	@NotBlank
 	private String password;
+
 	private String role;
 
-	@OneToOne/*(cascade = {CascadeType.ALL})*/ //Non lo utilizziamo così abbiamo comunque traccia di tutti gli ordini eseguiti e le persone corrispondenti
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Person person;
 
 	@OneToMany(mappedBy = "account")
-	private List<Car> car;
+	private List<Car> cars;
 
 	@OneToMany(mappedBy = "account")
 	private List<Ordine> ordine;
@@ -77,27 +78,12 @@ public class Account {
 		this.person = person;
 	}
 
-	public List<Car> getCar() {
-		return car;
+	public List<Car> getCars() {
+		return cars;
 	}
 
-	public void setCar(List<Car> car) {
-		this.car = car;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(password, username);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
-			return false;
-		Account other = (Account) obj;
-		return Objects.equals(password, other.password) && Objects.equals(username, other.username);
+	public void setCars(List<Car> car) {
+		this.cars = car;
 	}
 
 	public String getRole() {

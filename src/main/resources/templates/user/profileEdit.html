@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Registrazione</title>
+		<title>Aggiorna profilo</title>
 		<link rel="stylesheet" href="/css/stile.css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
 	</head>
@@ -17,18 +17,13 @@
 		</div>
 		
 		<div class="panel" style="padding-bottom: 40px;">
-			<h1 style="text-align: center;">Creazione account</h1>
+			<h1 style="text-align: center;">Aggiorna il tuo profilo</h1>
 			
 			<div class="user-container">
 				
-				<form th:action="@{/register}" method="POST" accept-charset="UTF-8">
+				<form th:action="@{/profile/edit}" method="POST" accept-charset="UTF-8">
 					
 					<div th:object="${person}">
-						<div th:if="${#fields.hasGlobalErrors()}">
-							<p style="color: red; text-align: center;" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
-						</div>
-					</div>
-					<div th:object="${account}">
 						<div th:if="${#fields.hasGlobalErrors()}">
 							<p style="color: red; text-align: center;" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
 						</div>
@@ -37,46 +32,34 @@
 				<div class="column">
 					<div>
 					<label>Nome</label>
-					<input type="text" required th:field="${person.nome}">
+					<input type="text" required th:field="${person.nome}" th:value="${person.nome}">
 					<span th:if="${#fields.hasErrors('person.nome')}" th:errors="${person.nome}" th:style="'color:red'">
 					</span>
 					</div>
 					<div>
 					<label>Luogo di nascita</label>
-					<input type="text" required th:field="${person.luogoNascita}">
+					<input type="text" required th:field="${person.luogoNascita}" th:value="${person.luogoNascita}">
 					<span th:if="${#fields.hasErrors('person.luogoNascita')}" th:errors="${person.luogoNascita}" th:style="'color:red'">
-					</span>
-					</div>
-					<div>
-					<label>Username</label>
-					<input type="text" required th:field="${account.username}">
-					<span th:if="${#fields.hasErrors('account.username')}" th:errors="${account.username}" th:style="'color:red'">
 					</span>
 					</div>
 				</div>
 				<div class="column">
 					<div>
 						<label>Cognome</label>
-					<input type="text" required th:field="${person.cognome}">
+					<input type="text" required th:field="${person.cognome}" th:value="${person.cognome}">
 					<span th:if="${#fields.hasErrors('person.cognome')}" th:errors="${person.cognome}" th:style="'color:red'">
 					</span>
 					</div>
 					<div>
 						<label>Data di nascita</label>
-					<input type="date" required th:field="${person.dataNascita}">
+					<input type="date" required th:field="${person.dataNascita}" th:value="${person.dataNascita}">
 					<span th:if="${#fields.hasErrors('person.dataNascita')}" th:errors="${person.dataNascita}" th:style="'color:red'">
-					</span>
-					</div>
-					<div>
-						<label>Password</label>
-					<input type="password" required th:field="${account.password}">
-					<span th:if="${#fields.hasErrors('account.password')}" th:errors="${account.password}" th:style="'color:red'">
 					</span>
 					</div>
 				</div>
 					</div>
 					<div class="form-submit">
-						<button type="submit">Registrati</button>
+						<button type="submit">Aggiorna</button>
 					</div>
 					
 				</form>

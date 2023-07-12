@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pannello dettagli ordini</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<div style="float: inline-start;" th:if="${userDetails}">
+				<div class="avatar" th:text="${userDetails.username[0]}"></div>
+			</div>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Ordini effettuati</h1>
+			
+			<div class="user-container">
+				
+				<div class="order" th:object="${ordine}">
+					<div class="order-header">
+						<div class="order-header-data">
+							<div class="column-grid order-date">
+								<div class="div-label">
+									<span>ORDINE EFFETTUATO IL:</span>
+								</div>
+								<div class="div-value">
+									<span th:text="*{dataCreazione}">8 ottobre 2016</span>
+								</div>
+							</div>
+							<div class="column-grid price">
+								<div style="width: 107%;" class="div-label">
+									<span>TOTALE RIPARAZIONE</span>
+								</div>
+								<div class="div-value">
+									<span th:text="*{costo} + ' €'">€250,00</span>
+								</div>
+							</div>
+							<div class="order-number">
+								<div style="width: 111%;" class="div-label">
+									<span>ORDINE #</span>
+									<span style="color: #a6a5ad;" th:text="*{numeroOrdine}">403-6432399-2557148</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="order-body" style="min-height: 189px; height: fit-content;">
+						<div class="order-body-data">
+							<div class="left-body-grid">
+								<div style="width: 100%">
+									<div class="order-title" style="margin-left: unset;">
+										<span th:text="*{titolo}">Titolo riparazione (che tipo di intervento)</span>
+										<div style="margin-top: 3.5%; font-size: 13px; color: #D5D9D9;">
+											<p style="width: 89%;" th:text="*{descrizione}"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="right-body-grid" style="width: 210px;">
+								<div style="width: 100%; margin-left: 50px;">
+									<div class="div-label">
+										<span th:text="*{car.marca} + ' ' + *{car.modello} + ' ' + *{car.immatricolazione} + ' (' + *{car.targa} + ')'">Dettagli macchina (marca modello immatricolazione)</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- inizio secondo body -->
+						<div class="order-body-data" style="padding: unset;">
+							<div class="left-body-grid" style="padding: unset; width: 100%;">
+								<div class="order-title" style="width: 59%; float: right; margin-right: 3%;">
+									<span style="float: right;">Risposta del tecnico</span>
+									<div class="div-label" style="margin-top: 7%; font-size: 13px; color: #D5D9D9;">
+										<p style="float: right; word-break: break-word; font-size: 13px;" th:text="*{risposta}"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="text-align: center;"><a class="genericButton" th:href="@{'/admin/addAnswer/' + ${ordine.id}}">Rispondi</a></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

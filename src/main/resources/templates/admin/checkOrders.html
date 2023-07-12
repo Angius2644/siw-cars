@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Controllo ordini</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<div style="float: inline-start;" th:if="${userDetails}">
+				<div class="avatar" th:text="${userDetails.username[0]}"></div>
+			</div>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Ordini degli utenti</h1>
+			
+			<form class="form-elements" th:action="@{'/admin/searchOrders/' + ${condition}}" method="POST" accept-charset="UTF-8">
+					
+					<div style="width: 50%; margin: auto auto 0 auto; display: grid; gap: 5px;">
+					<label>Cerca per Targa o N°Ordine:</label>
+					<input type="text" th:value="${search}" name="search" required/>
+					<span style="text-align: center;"><button type="submit">Cerca</button></span>
+					</div>
+					
+				</form>
+			
+			<div class="user-container">
+				
+				<div th:each="ordine : ${ordini}">
+					<div class="order" th:object="${ordine}">
+						<div class="order-header">
+							<div class="order-header-data">
+								<div class="column-grid order-date">
+									<div class="div-label">
+										<span>ORDINE EFFETTUATO IL:</span>
+									</div>
+									<div class="div-value">
+										<span th:text="*{dataCreazione}">8 ottobre 2016</span>
+									</div>
+								</div>
+								<div class="column-grid price">
+									<div style="width: 107%;" class="div-label">
+										<span>TOTALE RIPARAZIONE</span>
+									</div>
+									<div class="div-value">
+										<span th:text="*{costo} + ' €'">€250,00</span>
+									</div>
+								</div>
+								<div class="order-number">
+									<div style="width: 111%;" class="div-label">
+										<span>ORDINE #</span>
+										<span style="color: #a6a5ad;" th:text="*{numeroOrdine}">403-6432399-2557148</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="order-body">
+							<div class="order-body-data">
+								<div class="left-body-grid">
+									<div style="width: 180%">
+										<div style="padding-left: 100px">
+											<div th:if="*{isComplete}" class="status-div">
+												<img alt="Done icon" src="/images/done.png" width="69">
+											</div>
+											<div th:if="*{!isComplete}" class="status-div">
+												<img alt="Done icon" src="/images/not-done.png" width="69">
+											</div>
+											<div class="order-title" style="width: 42%;">
+												<span th:text="*{titolo}">Titolo riparazione (che tipo di intervento)</span>
+												<div class="div-label" style="margin-top: 3.5%;">
+													<span th:text="*{car.marca} + ' ' + *{car.modello} + ' ' + *{car.immatricolazione} + ' (' + *{car.targa} + ')'">Dettagli macchina (marca modello immatricolazione)</span>
+												</div>
+												<div class="div-label" style="margin-top: 3.5%;">
+												<span th:text="'Utente: ' + *{account.username}"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="right-body-grid">
+									<div style="width: 100%; margin-left: -40px;">
+										<a th:href="@{'/admin/orderDetails/' + *{id}}" class="text-button" role="button">
+											<span class="style-button details-button">Visualizza dettagli dell'ordine</span>
+										</a>
+										
+										<a th:href="@{'/admin/deleteOrder/' + *{id}}" class="text-button" role="button">
+											<span class="style-button delete-button">Elimina ordine</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="text-align: center;" th:if="${ordini.isEmpty()}">
+					<span>Nessun ordine trovato</span>
+				</div>
+			</div>
+		</body>
+	</html>

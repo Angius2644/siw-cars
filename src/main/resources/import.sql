@@ -1,5 +1,5 @@
 insert into account values(nextval('account_seq'), 'test', 'DEFAULT', 'test');
-insert into account values(nextval('account_seq'), 'admin', 'ADMIN', 'admin');
+insert into account values(nextval('account_seq'), '$2a$10$KW0voOEHo/IxQPBoSctkI.gnqU68E56dZdWLctte8ZFRmkgQgUVYu', 'ADMIN', 'admin');
 insert into account values(nextval('account_seq'), 'utente2', 'DEFAULT', 'utente2')
 
 insert into person values(nextval('person_seq'), 'Ciafrone', '1998-04-24', 'Roma', 'Davide', 3663600879);

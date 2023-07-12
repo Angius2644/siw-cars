@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Profilo</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Benvenuto nel profilo, <span th:text="${person.nome}"></span></h1>
+			<div class="user-container">
+				
+				<div style="text-align: center;">
+					<p style="margin-bottom: 50px;">
+						Qui potrai aggiornare i dati del tuo profilo oppure dei tuoi veicoli. Seleziona un'opzione qui sotto:
+					</p>
+				</div>
+			</div>
+			
+			<div class="user-container" style="display: flex; padding-top: unset;">
+				<div class="info-panel" th:object="${person}">
+					<div style="float: inline-start;" th:if="${userDetails}">
+						<div style="width: 110px; height: 110px;" class="avatar" th:text="${userDetails.username[0]}"></div>
+					</div>
+					<span>Dettagli del profilo:</span>
+					<span th:text="'Nome: ' + *{nome}"></span>
+					<span th:text="'Cognome: ' + *{cognome}"></span>
+					<span th:text="'Luogo di nascita: ' + *{luogoNascita}"></span>
+					<span th:text="'Data di nascita: ' + *{dataNascita}"></span>
+					<span th:text="'Totale veicoli: ' + ${numeroCar}"></span>
+					<span th:text="'Totale ordini: ' + ${numeroOrdini}"></span>
+					<a class="genericButton" href="/profile/edit">Aggiorna profilo</a>
+				</div>
+				<div class="review-panel">
+					<h1 style="text-align: center; margin-bottom: 50px;">Elenco macchine</h1>
+					<div style="margin: 5%;"><a class="genericButton" href="/newCar">Inserisci nuova macchina</a></div>
+					<a style="color: unset;" th:href="@{'/carDetails/' + ${car.id}}" th:each="car : ${cars}" >
+						<div class="review-box">
+							<h3 th:text="${car.marca} + ' ' + ${car.modello}"></h3>
+							<span th:text="${car.immatricolazione} + ' (' + ${car.targa} + ')'"></span>
+							<span style="color: #007aff; float: inline-end; font-size: 10px; padding-right: 5%;">Clicca per maggiori dettagli o aggiornare i dati</span>
+						</div>
+					</a>
+				</div>
+			</div>
+			
+		</body>
+	</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nuova richiesta</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Nuova richiesta</h1>
+			
+			<div class="user-container">
+				
+				<form th:action="@{/newOrder}" method="POST" th:object="${ordine}" accept-charset="UTF-8">
+					<div th:if="${#fields.hasGlobalErrors()}">
+						<p style="color: red;" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+					</div>
+					
+					<div class="form-elements">
+						<div class="column">
+							<div>
+								<label>Titolo:</label>
+								<input type="text" th:field="*{titolo}" />
+								<span style="color: red;" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}">
+								</span>
+							</div>
+							<div>
+								<label>Veicolo (seleziona):</label>
+								<select th:name="car_id" style="width: 108%;">
+									<option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.marca} + ' ' + ${car.modello} + ' ' + '(' + ${car.targa} + ')'">1</option>
+								</select>
+							</div>
+						</div>
+						<div class="column">
+							<div>
+								<label>Descrizione del problema:</label>
+								<textarea th:field="*{descrizione}" />
+								<span style="color: red;" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-submit">
+						<span><button type="submit">Invia</button></span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

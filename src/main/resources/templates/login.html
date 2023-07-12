@@ -7,43 +7,44 @@
 	</head>
 	<body>
 		<header>
-			<div th:if="${userDetails}">
-				<span th:text="${userDetails.username}"></span>
-				<a href="/logout">Logout</a>
-			</div>
-			<div th:unless="${user}">
-				<a href="/login">Login</a>
-			</div>
+			<a class="genericButton" style="float: right;" href="/login">Sign-in</a>
 		</header>
 		
 		<div class="logo-container">
-			<a id="logo-link" href="/">
-				<div style="text-align: center;"><img src="/images/siwCarsLogo.png" width="50%" /></div>
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
 			</a>
 		</div>
+		
 		<div class="panel" style="padding-bottom: 40px;">
 			<h1 style="text-align: center;">Login</h1>
 			
-			<div class="user-container" style="flex-direction: unset;">
+			<div class="user-container">
 				
-				<form class="form-elements" th:action="@{/login}" method="POST" accept-charset="UTF-8">
-					
+				<form th:action="@{/login}" method="POST" accept-charset="UTF-8">
+				
+					<div class="form-elements">
+					<div class="loginForm">
+					<div>
 					<label>Username:</label>
 					<input name="username" type="text" required />
-					
-					<label>Password:</label>
-					<input name="password" type="password" required />
-					
-					<div th:if="${param.error != null}">
-						<span style="color: red;">Username o password errati</span>
 					</div>
 					
-					<span style="text-align: center;"><button type="submit">Login</button></span>
+					<div>
+					<label>Password:</label>
+					<input name="password" type="password" required />
+					</div>
+					<div th:if="${param.error != null}">
+						<span style="color: red; text-align: center;">Username o password errati</span>
+					</div>
+					</div>
+
+					</div>
+					<div class="form-submit">
+						<button type="submit">Sign-in</button>
+					</div>
 					
 				</form>
-			</div>
-			<div style="text-align: center;">
-				<a style="text-decoration: none; margin-bottom: auto;" class="register" th:href="@{/register}" th:text="Registrati">Registrati</a>
 			</div>
 		</body>
 	</html>

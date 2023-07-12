@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Successo!</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<a class="genericButton" style="float: right;" href="/login">Sign-in</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Registrazione avvenuta con successo!</h1>
+			
+			<div class="user-container">
+				<div style="text-align: center;">
+					<p style="margin-bottom: 50px;">Gentile <span th:text="${person.nome} + ' ' + ${person.cognome} + ' '"></span>l'account è stato creato correttamente, adesso potete eseguire l'accesso
+						premendo il pulsante in alto a destra oppure tornare alla home premendo il seguente pulsante:
+					</p>
+					<a class="genericButton" href="/">Homepage</a>
+				</div>
+			</div>
+		</body>
+	</html>

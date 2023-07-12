@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dettagli macchine</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<div style="float: inline-start;" th:if="${userDetails}">
+						<div class="avatar" th:text="${userDetails.username[0]}"></div>
+					</div>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		<div class="panel" style="padding-bottom: 30px;">
+			<h1 style="text-align: center;">Dettagli della macchina selezionata</h1>
+			
+			<div class="user-container" style="display: flex; padding-top: unset; padding-bottom: unset;">
+				<div style="display: flex; flex-direction: column; margin-top: 15%;" class="info-panel" th:object="${car}">
+					<span>Dettagli della macchina:</span>
+					<span th:text="'Targa: ' + *{targa}"></span>
+					<span th:text="'Marca: ' + *{marca}"></span>
+					<span th:text="'Modello: ' + *{modello}"></span>
+					<span th:text="'Immatricolazione: ' + *{immatricolazione}"></span>
+					<span th:text="'Chilometri: ' + *{chilometri} + ' km'"></span>
+					<span th:text="'Colore: ' + *{colore}"></span>
+				</div>
+				<div style="padding-top: 20%; padding-bottom: unset;" class="review-panel">
+					<h1 style="text-align: center;">Aggiorna dettagli della macchina</h1>
+					<div style="text-align: center; margin-top: 10%;">
+					<a class="genericButton" th:href="@{'/updateCarDetails/' + ${car.id}}">Aggiorna dati</a>
+					</div>
+				</div>
+			</div>
+			
+		</body>
+	</html>

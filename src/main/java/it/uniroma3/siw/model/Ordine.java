@@ -2,6 +2,7 @@ package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Random;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -22,7 +22,6 @@ public class Ordine {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotBlank
 	private String numeroOrdine;
 
 	@PositiveOrZero
@@ -32,19 +31,23 @@ public class Ordine {
 	private String titolo;
 
 	@PastOrPresent
-	private LocalDate datacreazione;
+	private LocalDate dataCreazione;
 
 	@NotBlank
 	@Column(length = 2500)
 	@Size(max = 2501)
 	private String descrizione;
 
+	@Column(length = 2500)
+	@Size(max = 2501)
+	private String risposta;
+
 	private boolean isComplete;
 
 	@ManyToOne
-	private Account account; //probabilmente da rimuovere, inutile
+	private Account account;
 
-	@OneToOne
+	@ManyToOne
 	private Car car;
 
 	public Long getId() {
@@ -79,14 +82,6 @@ public class Ordine {
 		this.titolo = titolo;
 	}
 
-	public LocalDate getDatacreazione() {
-		return datacreazione;
-	}
-
-	public void setDatacreazione(LocalDate datacreazione) {
-		this.datacreazione = datacreazione;
-	}
-
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -113,7 +108,7 @@ public class Ordine {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(datacreazione, numeroOrdine);
+		return Objects.hash(dataCreazione, numeroOrdine);
 	}
 
 	@Override
@@ -123,7 +118,7 @@ public class Ordine {
 		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		Ordine other = (Ordine) obj;
-		return Objects.equals(datacreazione, other.datacreazione) && Objects.equals(numeroOrdine, other.numeroOrdine);
+		return Objects.equals(dataCreazione, other.dataCreazione) && Objects.equals(numeroOrdine, other.numeroOrdine);
 	}
 
 	public Car getCar() {
@@ -132,5 +127,49 @@ public class Ordine {
 
 	public void setCar(Car car) {
 		this.car = car;
+	}
+
+	public String numeroOrdineGenerator() {
+
+	    // Ottengo l'anno, mese e giorno dalla data di creazione
+	    String anno = String.valueOf(dataCreazione.getYear());
+	    String mese = String.format("%02d", dataCreazione.getMonthValue());
+	    String giorno = String.format("%02d", dataCreazione.getDayOfMonth());
+
+	    // Ottengo l'ID dell'Account con zeri aggiuntivi se necessario
+	    String idAccount = String.format("%04d", account.getId());
+
+	    // Genero quattro cifre casuali per l'ID dell'ordine
+	    String idOrdine = generateRandomDigits(4);
+
+	    // Combino tutte le parti per formare il numero dell'ordine
+	    String numeroOrdine = anno + "-" + mese + giorno + idAccount + idOrdine;
+
+	    return numeroOrdine;
+	}
+
+	private String generateRandomDigits(int length) {
+	    Random random = new Random();
+	    StringBuilder sb = new StringBuilder(length);
+	    for (int i = 0; i < length; i++) {
+	        sb.append(random.nextInt(10));
+	    }
+	    return sb.toString();
+	}
+
+	public LocalDate getDataCreazione() {
+		return dataCreazione;
+	}
+
+	public void setDataCreazione(LocalDate dataCreazione) {
+		this.dataCreazione = dataCreazione;
+	}
+
+	public String getRisposta() {
+		return risposta;
+	}
+
+	public void setRisposta(String risposta) {
+		this.risposta = risposta;
 	}
 }

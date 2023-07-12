@@ -6,12 +6,13 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.model.Account;
-import it.uniroma3.siw.repository.AccountRepository;
+import it.uniroma3.siw.service.AccountService;
 
 @Component
 public class AccountValidator  implements Validator{
+
 	@Autowired
-	private AccountRepository accountRepository;
+	private AccountService accountService;
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -21,11 +22,8 @@ public class AccountValidator  implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Account account = (Account) o;
-		if(!this.accountRepository.existsByUsername(account.getUsername())) {
+		if(account != null && this.accountService.isPresentByUsername(account.getUsername())) {
 			errors.reject("account.duplicate");
-		}
-		if(!this.accountRepository.existsByUsernameAndPassword(account.getUsername(), account.getPassword())) {
-			errors.reject("account.wrongPass");
 		}
 	}
 }

@@ -15,6 +15,4 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
 	public boolean existsByNomeAndCognomeAndDataNascitaAndLuogoNascita(String nome, String cognome,
 			LocalDate dataNascita, String luogoNascita);
-
-	public List<Person> findByTelefono(Long telefono);
 }

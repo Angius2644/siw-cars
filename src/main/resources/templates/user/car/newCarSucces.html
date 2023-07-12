@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dettagli veicolo</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<a class="genericButton" style="float: right;" href="/login">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;" th:text="'Dettagli del veicolo: ' + ${car.marca} + ' ' + ${car.modello} + ' (' + ${car.targa} + ')'">Titolo</h1>
+			
+			<div class="user-container">
+				
+				<div style="text-align: center;">
+					<p style="margin-bottom: 50px; display: flex; flex-direction: column; gap: 5px;" th:text="'Gentile ' + ${car.account.person.nome} + ' ' + ${car.account.person.cognome} + ', la macchina è stata registrata correttamente:'"></span>
+						<br>
+						<span th:text="'Targa: ' + ${car.targa}"></span>
+						<span th:text="'Marca: ' + ${car.marca}"></span>
+						<span th:text="'Modello: ' + ${car.modello}"></span>
+						<span th:text="'Immatricolazione: ' + ${car.immatricolazione}"></span>
+						<span th:text="'Chilometri: ' + ${car.chilometri}"></span>
+						<span th:text="'Colore: ' + ${car.colore}"></span>
+						<br>
+						Per inviare una nuova richiesta di riparazione clicchi qui, altrimenti torni alla homepage!
+					</p>
+					<a class="genericButton" href="/newOrder">Invia richiesta</a>
+				</div>
+				
+			</div>
+		</body>
+	</html>

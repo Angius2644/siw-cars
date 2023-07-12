@@ -1,14 +1,16 @@
 package it.uniroma3.siw.model;
 
 import java.time.Year;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,14 +18,14 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-//@NamedQuery(name="Car.carList", query="SELECT c FROM Car c WHERE c.account = :id")
 public class Car {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Pattern(regexp = "^[A-Za-z]{2}\\d{3}[A-Za-z]{2}$") /*(?i) ndica l'insensibilità maiuscole/minuscole*/
+	@Pattern(regexp = "^[A-Za-z]{2}\\d{3}[A-Za-z]{2}$")
+	@NotBlank
 	private String targa;
 
 	@NotBlank
@@ -44,8 +46,8 @@ public class Car {
 	@ManyToOne
 	private Account account;
 
-	@OneToOne
-	private Ordine ordine;
+	@OneToMany(mappedBy = "car", cascade = {CascadeType.REMOVE})
+	private List<Ordine> ordine;
 
 	public Long getId() {
 		return id;
@@ -127,11 +129,18 @@ public class Car {
 				&& Objects.equals(modello, other.modello) && Objects.equals(targa, other.targa);
 	}
 
-	public Ordine getOrdine() {
+	public List<Ordine> getOrdine() {
 		return ordine;
 	}
 
-	public void setOrdine(Ordine ordine) {
+	public void setOrdine(List<Ordine> ordine) {
 		this.ordine = ordine;
+	}
+
+	@Override
+	public String toString() {
+		return "Car [id=" + id + ", targa=" + targa + ", marca=" + marca + ", modello=" + modello + ", chilometri="
+				+ chilometri + ", immatricolazione=" + immatricolazione + ", colore=" + colore + ", account=" + account
+				+ ", ordine=" + ordine + "]";
 	}
 }

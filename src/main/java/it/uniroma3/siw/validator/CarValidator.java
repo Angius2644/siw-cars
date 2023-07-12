@@ -29,8 +29,5 @@ public class CarValidator implements Validator {
 		if (car.getImmatricolazione() != null && car.getImmatricolazione().isBefore(Year.of(1926))) {
 			errors.reject("Min.car.immatricolazione");
 		}
-		if (car.getImmatricolazione() != null && car.getImmatricolazione().length() != 4) {
-			errors.reject("lengthMismatch.car.immatricolazione");
-		}
 	}
 }

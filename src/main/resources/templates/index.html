@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<title>SIW - Cars</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-	<div class="logo-container">
-		<a id="logo-link" href="/">
-			<img id="logo-img" src="/images/siwCarsLogo.jpg" />
-		</a>
-	</div>
-	<h1 id="title">Officina Auto</h1>
-	<div class="container">
-		<a class="box" href="/formNewCar">Richiesta inserimento macchina</a>
-		<a class="box" href="/cars">Mostra le auto in officina</a>
-		<a class="box" href="/formSearchCars">Cerca macchina</a>
-	</div>
-	<div class="container">
-		<a class="box" href="/formNewPerson">Registrazione nuovo utente</a>
-		<a class="box" href="/accounts">Mostra tutti gli utenti registrati</a>
-		<a class="box" href="/formSearchPerson">Ricerca utente per nome e cognome</a>
-	</div>
-	<div class="container">
-		<a class="box" href="/formLogin">Accedi</a>
-		<a class="box" href="/user/1/userPanel">User Panel</a>
-		<a class="box" href="/admin/adminPanel">Admin Panel</a>
-	</div>
-</body>
-
-</html>
+	<head>
+		<title>SIW - Cars</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+				<a class="genericButton" style="float: right;" href="/login">Sign-in</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Officina Auto</h1>
+			
+			<div class="user-container">
+				
+				<div class="panel-grid">
+				<a class="link" href="/aboutUs">
+						<div class="box">
+							<div class="div-value"><h2>Chi siamo</h2></div>
+							<div class="div-label">Vieni a scoprire la nostra storia</div>
+						</div>
+				</a>
+				<a class="link" href="/helpCenter">
+						<div class="box">
+							<div class="div-value"><h2>Contattaci</h2></div>
+							<div class="div-label">Hai un dubbio o un problema? Contattaci!</div>
+						</div>
+				</a>
+				<a class="link" href="/register">
+						<div class="box">
+							<div class="div-value"><h2>Registrati</h2></div>
+							<div class="div-label">Registrati qui per inviare le richieste di assistenza</div>
+						</div>
+				</a>
+				</div>
+			</div>
+		</body>
+	</html>

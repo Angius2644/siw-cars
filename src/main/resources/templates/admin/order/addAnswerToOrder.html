@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nuova risposta</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		
+		<div th:object="${ordine}" class="panel" style="padding-bottom: 40px;">
+			<h1 th:text="'Risposta ordine N° ' + *{numeroOrdine}" style="text-align: center;"></h1>
+			
+			<div class="user-container">
+				
+				<form th:action="@{'/admin/addAnswerToOrder/' + ${ordine.id}}" method="POST" accept-charset="UTF-8">
+					<div class="form-elements">
+						<div class="column">
+							<div>
+								<label>Costo (€):</label>
+								<input type="number" name="costo" th:value="*{costo}">
+								<span th:if="${errorCosto}" th:style="'color:red'" th:text="${errorCosto}">
+								</span>
+							</div>
+							<div>
+								<label>Veicolo (seleziona):</label>
+								<select th:name="car_id" style="width: 108%;">
+									<option th:value="*{car.id}" th:text="*{car.marca} + ' ' + *{car.modello} + ' ' + '(' + *{car.targa} + ')'"></option>
+								</select>
+							</div>
+						</div>
+						<div class="column">
+							<div>
+								<label>Risposta al problema:</label>
+								<textarea name="descrizione" th:value="*{risposta}"></textarea>
+								<span th:if="${errorRisposta}" th:style="'color:red'" th:text="${errorRisposta}">
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-submit">
+						<span><button type="submit">Invia</button></span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

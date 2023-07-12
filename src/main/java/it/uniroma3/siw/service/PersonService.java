@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import it.uniroma3.siw.model.Person;
@@ -15,15 +16,13 @@ public class PersonService {
 	@Autowired
 	private PersonRepository personRepository;
 
-	public Iterable<Person> showPeople() {
-		return this.personRepository.findAll();
-	}
-
-	public Person getPerson(long id) {
+	@Transactional
+	public Person getPerson(Long id) {
 		return this.personRepository.findById(id).get();
 	}
 
-	public Person newPerson(Person person) {
+	@Transactional
+	public Person savePerson(Person person) {
 		person.setNome(StringUtils.capitalize(person.getNome()));
 		person.setCognome(StringUtils.capitalize(person.getCognome()));
 		person.setLuogoNascita(StringUtils.capitalize(person.getLuogoNascita()));

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>*Admin* SIW - Cars</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+	</head>
+	<body>
+		<header>
+			<div style="float: inline-start;" th:if="${userDetails}">
+				<div class="avatar" th:text="${userDetails.username[0]}"></div>
+			</div>
+			<a class="genericButton" style="float: right;" href="/logout">Sign-out</a>
+		</header>
+		
+		<div class="logo-container">
+			<a href="/">
+				<img src="/images/siwCarsLogo.jpg" width="320px" />
+			</a>
+		</div>
+		<div class="panel" style="padding-bottom: 40px;">
+			<h1 style="text-align: center;">Pannello Admin</h1>
+			
+			<div class="user-container">
+				
+				<div class="panel-grid">
+					<a class="link" href="/admin/checkUndoneOrders">
+						<div class="box">
+							<div class="div-value"><h2>Rispondi alle richieste</h2></div>
+							<div class="div-label">Visualizza e rispondi alle richieste</div>
+						</div>
+					</a>
+					<a class="link" href="/admin/checkDoneOrders">
+						<div class="box">
+							<div class="div-value"><h2>Elenco ordini processati</h2></div>
+							<div class="div-label">Visualizza e aggiorna tutti gli ordini processati</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</body>
+	</html>
